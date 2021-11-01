@@ -12,7 +12,63 @@
 <script src="script.js"></script>
 
 
+<hr>
+<h2 style="color: white" align="center">MY WEB CAM</h1>
+<hr> 
+<div class="navi" align="center">
+<nav>
+	<a href="..">Home</a>
+<button  class="but" onclick="cam()"> ambil gambar</button>
+	<a href=""> Refresh</a>
+</nav></div>
 
-<a> <img class="mobile_base" align="center" height="700px" src="assets/ui_1.png"> </a> 
-
-<h3 id="coming_soon" >COMING SOON</h3>
+<div align="center">
+	<video autoplay="true" id="video-webcam" class="webcam">
+		browser tidak mendukung
+	</video>
+</div>
+<script type="text/javascript">
+	//seleksi elemen video
+	var video=document.querySelector("#video-webcam");
+	//minta izin
+	navigator.getUserMedia=navigator.getUserMedia||navigator.webkitGetUserMedia;
+	if (navigator.getUserMedia){
+		navigator.getUserMedia({ video: true}, handleVideo,videoError);
+}
+function handleVideo(stream) {
+	video.srcObject = stream;
+}
+function videoError(e) {
+	alert("tidak bisa mengakses webcam\n harap izinkan akses terlebih dahulu")
+	navigator.getUserMedia=navigator.getUserMedia||navigator.webkitGetUserMedia;
+	navigator.getUserMedia({ video: true}, handleVideo,videoError);
+}
+</script>
+<hr>
+<script type="text/javascript">
+	function cam() {
+	alert("say cheese")
+	//deklarasi variabel
+	var img= document.createElement('img');
+	var context;
+	// ukran video
+	var width = video.offsetWidth, height= video.offsetHeight;
+	//deklarasi untuk canvas
+	canvas = document.createElement('canvas');
+	canvas.width = width;
+	canvas.height=height;
+	//ambil gambar
+	context = canvas.getContext('2d');
+	context.drawImage(video,10,10,width,height);
+	//render hasil kedalam png
+	img.src = canvas.toDataURL('image/png');
+	document.body.appendChild(img);
+	 alert('tekan end untuk melihat hasil')
+}
+</script>
+</div>
+<footer style="text-align: left;">
+	<p>			Copyright &copy; 2020 faiz abdillah</p>
+</footer>
+</body>
+</html>
